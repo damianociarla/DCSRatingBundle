@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <mapped-superclass name="DCS\RatingBundle\Entity\Rating">
+
+        <field name="numVotes" column="num_votes" type="integer" />
+
+        <field name="rate" column="rate" type="decimal" precision="4" scale="1" />
+
+        <field name="securityRole" column="security_role" type="string" nullable="true" />
+
+        <field name="permalink" column="permalink" type="string" nullable="true" />
+
+        <field name="createdAt" column="created_at" type="datetime" />
+
+    </mapped-superclass>
+
+</doctrine-mapping>

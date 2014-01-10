@@ -1,0 +1,13 @@
+{% spaceless %}
+<div class="rating">
+    {% for i in 5..1 %}
+    {% set style = '' %}
+    {% if i <= rating.rate %}
+    {% set style = 'full' %}
+    {% else %}
+    {% set style = rating.rate|isHalfStar(i) ? 'half' %}
+    {% endif %}
+    <a href="{{ url('dcs_rating_add_vote', {'id' : rating.id, 'value' : i}) }}" class="star {{ style }}">☆</a>
+    {% endfor %}
+</div>
+{% endspaceless %}

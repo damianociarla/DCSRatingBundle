@@ -1,0 +1,13 @@
+{% spaceless %}
+<div class="rating">
+    {% for i in 5..1 %}
+    {% set style = '' %}
+    {% if i <= rating.rate %}
+    {% set style = 'full' %}
+    {% else %}
+    {% set style = rating.rate|isHalfStar(i) ? 'half' %}
+    {% endif %}
+    <span class="star {{ style }}">☆</span>
+    {% endfor %}
+</div>
+{% endspaceless %}

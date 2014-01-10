@@ -1,0 +1,2 @@
+{% set securityRole = role|default(getDefaultSecurityRole()) %}
+{{ render(controller('DCSRatingBundle:Rating:control', {'id' : id, 'permalink' : app.request.uri, 'securityRole' : securityRole})) }}
