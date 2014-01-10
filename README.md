@@ -27,7 +27,7 @@ Enable the required bundles in the kernel:
 	{
 	    $bundles = array(
         	// ...
-        	new DCS\RatingBundle(),
+        	new DCS\RatingBundle\DCSRatingBundle(),
     	);
 	}
 
