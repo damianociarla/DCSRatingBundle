@@ -4,7 +4,7 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
 
-    <route id="dcs_rating_add_vote" pattern="/rating/vote/add/{id}/{value}">
+    <route id="dcs_rating_add_vote" pattern="/vote/add/{id}/{value}">
         <default key="_controller">DCSRatingBundle:Rating:addVote</default>
     </route>
 
