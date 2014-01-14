@@ -145,6 +145,10 @@ To enable voting on a page use the following twig code:
 
 	{% include 'DCSRatingBundle:Rating:control.html.twig' with {'id' : 'YOUR_UNIQUE_ID'} %}
 
-If you need to change the default user role for a specific page, add the `role` parameter to the previous code:
+If you need to change the default user role for a specific page, add the `role` parameter:
 
 	{% include 'DCSRatingBundle:Rating:control.html.twig' with {'id' : 'YOUR_UNIQUE_ID', 'role' : 'ROLE_USER'} %}
+	
+If you need to change the permalink, add the `permalink` parameter, otherwise it will be stored the current route:
+
+	{% include 'DCSRatingBundle:Rating:control.html.twig' with {'id' : 'YOUR_UNIQUE_ID', 'permalink' : url('YOUR_ROUTE_ID')} %}
