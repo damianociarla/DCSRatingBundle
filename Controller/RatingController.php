@@ -20,6 +20,7 @@ class RatingController extends Controller
 
         return $this->render('DCSRatingBundle:Rating:star.html.twig', array(
             'rating' => $rating,
+            'rate'   => $rating->getRate(),
         ));
     }
 
@@ -45,6 +46,7 @@ class RatingController extends Controller
 
         return $this->render('DCSRatingBundle:Rating:'.$viewName.'.html.twig', array(
             'rating' => $rating,
+            'rate'   => $rating->getRate(),
             'params' => $this->get('request')->get('params', array()),
         ));
     }
