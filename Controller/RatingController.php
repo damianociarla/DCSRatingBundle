@@ -6,7 +6,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
-use Symfony\Component\HttpFoundation\Request;
 
 class RatingController extends Controller
 {
@@ -45,11 +44,12 @@ class RatingController extends Controller
         }
 
         return $this->render('DCSRatingBundle:Rating:'.$viewName.'.html.twig', array(
-            'rating' => $rating
+            'rating' => $rating,
+            'params' => $this->get('request')->get('params', array()),
         ));
     }
 
-    public function addVoteAction(Request $request, $id, $value)
+    public function addVoteAction($id, $value)
     {
         if (null === $rating = $this->get('dcs_rating.manager.rating')->findOneById($id)) {
             throw new NotFoundHttpException('Rating not found');
@@ -65,9 +65,10 @@ class RatingController extends Controller
 
         $user = $this->getUser();
         $voteManager = $this->get('dcs_rating.manager.vote');
-        $vote = $voteManager->findOneByRatingAndVoter($rating, $user);
 
-        if ($this->container->getParameter('dcs_rating.unique_vote') && null !== $vote) {
+        if ($this->container->getParameter('dcs_rating.unique_vote') &&
+            null !== $voteManager->findOneByRatingAndVoter($rating, $user)
+        ) {
             throw new AccessDeniedHttpException('You have already rated');
         }
 
@@ -76,7 +77,7 @@ class RatingController extends Controller
 
         $voteManager->saveVote($vote);
 
-        if (null === $redirect = $request->headers->get('referer', $rating->getPermalink())) {
+        if (null === $redirect = $this->get('request')->headers->get('referer', $rating->getPermalink())) {
             if ($this->get('router')->getRouteCollection()->get($this->container->getParameter('dcs_rating.base_path_to_redirect'))) {
                 $redirect = $this->generateUrl($this->container->getParameter('dcs_rating.base_path_to_redirect'));
             } else {

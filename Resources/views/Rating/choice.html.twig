@@ -7,7 +7,8 @@
     {% else %}
     {% set style = rating.rate|isHalfStar(i) ? 'half' %}
     {% endif %}
-    <a href="{{ url('dcs_rating_add_vote', {'id' : rating.id, 'value' : i}) }}" class="star {{ style }}">☆</a>
+    {% set params = params|merge({'id' : rating.id, 'value' : i}) %}
+    <a href="{{ url('dcs_rating_add_vote', params) }}" class="star {{ style }}">☆</a>
     {% endfor %}
 </div>
 {% endspaceless %}

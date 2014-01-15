@@ -1,4 +1,3 @@
 {% set securityRole = role|default(getDefaultSecurityRole()) %}
 {% set permalink = permalink|default(app.request.uri) %}
-{% set params = params|default({})|merge({'id' : id, 'permalink' : permalink, 'securityRole' : securityRole}) %}
-{{ render(controller('DCSRatingBundle:Rating:control', params)) }}
+{{ render(controller('DCSRatingBundle:Rating:control', {'id' : id, 'permalink' : permalink, 'securityRole' : securityRole, 'params' : params|default({})})) }}
