@@ -125,7 +125,7 @@ To import the stylesheet run the following command:
 
 and include the stylesheet in your template:
 
-	<link rel="stylesheet" href="{{ asset('bundles/dcsrating/css/rating.js') }}" />
+	<link rel="stylesheet" href="{{ asset('bundles/dcsrating/css/rating.css') }}" />
 
 ## 6) Showing rating and enabling vote
 
@@ -148,7 +148,7 @@ To enable voting on a page use the following twig code:
 If you need to change the default user role for a specific page, add the `role` parameter:
 
 	{% include 'DCSRatingBundle:Rating:control.html.twig' with {'id' : 'YOUR_UNIQUE_ID', 'role' : 'ROLE_USER'} %}
-	
+
 If you need to change the permalink, add the `permalink` parameter, otherwise it will be stored the current route:
 
 	{% include 'DCSRatingBundle:Rating:control.html.twig' with {'id' : 'YOUR_UNIQUE_ID', 'permalink' : url('YOUR_ROUTE_ID')} %}
