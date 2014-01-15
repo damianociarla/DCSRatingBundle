@@ -6,7 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
-use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 
 class RatingController extends Controller
 {
@@ -48,7 +48,7 @@ class RatingController extends Controller
         ));
     }
 
-    public function addVoteAction($id, $value)
+    public function addVoteAction(Request $request, $id, $value)
     {
         if (null === $rating = $this->get('dcs_rating.manager.rating')->findOneById($id)) {
             throw new NotFoundHttpException('Rating not found');
@@ -74,16 +74,15 @@ class RatingController extends Controller
 
         $voteManager->saveVote($vote);
 
-        if ($this->get('request')->isXmlHttpRequest()) {
-            $response = new JsonResponse();
-            $response->setStatusCode(200);
-            $response->setData(array(
-                'num_votes' => $rating->getNumVotes(),
-                'rate' => $rating->getRate(),
-            ));
-        } else {
-            $response = $this->redirect($rating->getPermalink());
+        if (null === $redirect = $request->headers->get('referer', $rating->getPermalink())) {
+            if ($this->get('router')->getRouteCollection()->get($this->container->getParameter('dcs_rating.base_path_to_redirect'))) {
+                $redirect = $this->generateUrl($this->container->getParameter('dcs_rating.base_path_to_redirect'));
+            } else {
+                $redirect = $this->container->getParameter('dcs_rating.base_path_to_redirect');
+            }
         }
+
+        $response = $this->redirect($redirect);
 
         return $response;
     }

@@ -26,6 +26,7 @@ class DCSRatingExtension extends Extension
         $loader->load(sprintf('%s.xml', $config['db_driver']));
 
         $container->setParameter('dcs_rating.base_security_role', $config['base_security_role']);
+        $container->setParameter('dcs_rating.base_path_to_redirect', $config['base_path_to_redirect']);
         $container->setParameter('dcs_rating.default_values', $config['default_values']);
         $container->setParameter('dcs_rating.model.rating.class', $config['model']['rating']);
         $container->setParameter('dcs_rating.model.vote.class', $config['model']['vote']);

@@ -30,12 +30,12 @@ class RatingUpdateInfoEventListener implements EventSubscriberInterface
     {
         $rating = $event->getRating();
 
-        if (null !== $permalink = $this->request->get('permalink')) {
-            $rating->setPermalink($permalink);
+        if (null === $rating->getPermalink()) {
+            $rating->setPermalink($this->request->get('permalink'));
         }
 
-        if (null !== $securityRole = $this->request->get('securityRole')) {
-            $rating->setSecurityRole($securityRole);
+        if (null === $rating->getSecurityRole()) {
+            $rating->setSecurityRole($this->request->get('securityRole'));
         }
     }
 }
