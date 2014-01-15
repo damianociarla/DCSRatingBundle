@@ -38,7 +38,8 @@ class RatingController extends Controller
         if (!$this->get('security.context')->isGranted($rating->getSecurityRole())) {
             $viewName = 'star';
         } else {
-            $viewName = (null === $voteManager->findOneByRatingAndVoter($rating, $this->getUser()))
+            $isUnique = $this->container->getParameter('dcs_rating.unique_vote');
+            $viewName = (!$isUnique || ($isUnique && null === $voteManager->findOneByRatingAndVoter($rating, $this->getUser())))
             ? 'choice'
             : 'star';
         }
@@ -64,8 +65,10 @@ class RatingController extends Controller
 
         $user = $this->getUser();
         $voteManager = $this->get('dcs_rating.manager.vote');
+        $vote = $voteManager->findOneByRatingAndVoter($rating, $user);
+        $isUnique = $this->container->getParameter('dcs_rating.unique_vote');
 
-        if (null !== $vote = $voteManager->findOneByRatingAndVoter($rating, $user)) {
+        if (!$isUnique || ($isUnique && null === $vote)) {
             throw new AccessDeniedHttpException('You have already rated');
         }
 

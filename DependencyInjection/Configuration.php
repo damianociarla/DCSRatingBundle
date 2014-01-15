@@ -20,6 +20,7 @@ class Configuration implements ConfigurationInterface
                 ->scalarNode('db_driver')->isRequired()->end()
                 ->scalarNode('base_security_role')->defaultValue('IS_AUTHENTICATED_FULLY')->end()
                 ->scalarNode('base_path_to_redirect')->defaultValue('/')->end()
+                ->booleanNode('unique_vote')->defaultTrue()->end()
                 ->scalarNode('default_values')
                     ->defaultValue(\DCS\RatingBundle\DCSRatingExtra::$defaultValues)
                 ->end()
