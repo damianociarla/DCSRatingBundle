@@ -13,3 +13,6 @@ app/config/parameters.ini
 app/config/parameters.yml
 /nbproject/private/
 /nbproject/
+
+# PhpStorm
+.idea
