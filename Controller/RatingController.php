@@ -21,6 +21,7 @@ class RatingController extends Controller
         return $this->render('DCSRatingBundle:Rating:star.html.twig', array(
             'rating' => $rating,
             'rate'   => $rating->getRate(),
+            'maxValue' => $this->container->getParameter('dcs_rating.max_value'),
         ));
     }
 
@@ -40,14 +41,15 @@ class RatingController extends Controller
         } else {
             $isUnique = $this->container->getParameter('dcs_rating.unique_vote');
             $viewName = (!$isUnique || ($isUnique && null === $voteManager->findOneByRatingAndVoter($rating, $this->getUser())))
-            ? 'choice'
-            : 'star';
+                ? 'choice'
+                : 'star';
         }
 
         return $this->render('DCSRatingBundle:Rating:'.$viewName.'.html.twig', array(
             'rating' => $rating,
             'rate'   => $rating->getRate(),
             'params' => $this->get('request')->get('params', array()),
+            'maxValue' => $this->container->getParameter('dcs_rating.max_value'),
         ));
     }
 
@@ -61,8 +63,10 @@ class RatingController extends Controller
             throw new AccessDeniedHttpException('You can not perform the evaluation');
         }
 
-        if (!is_numeric($value) || $value < 0 || $value > 5) {
-            throw new BadRequestHttpException('You must specify a value between 0 and 5');
+        $maxValue = $this->container->getParameter('dcs_rating.max_value');
+
+        if (!is_numeric($value) || $value < 0 || $value > $maxValue) {
+            throw new BadRequestHttpException(sprintf('You must specify a value between 0 and %d', $maxValue));
         }
 
         $user = $this->getUser();
@@ -80,10 +84,11 @@ class RatingController extends Controller
         $voteManager->saveVote($vote);
 
         if (null === $redirect = $this->get('request')->headers->get('referer', $rating->getPermalink())) {
-            if ($this->get('router')->getRouteCollection()->get($this->container->getParameter('dcs_rating.base_path_to_redirect'))) {
-                $redirect = $this->generateUrl($this->container->getParameter('dcs_rating.base_path_to_redirect'));
+            $pathToRedirect = $this->container->getParameter('dcs_rating.base_path_to_redirect');
+            if ($this->get('router')->getRouteCollection()->get($pathToRedirect)) {
+                $redirect = $this->generateUrl($pathToRedirect);
             } else {
-                $redirect = $this->container->getParameter('dcs_rating.base_path_to_redirect');
+                $redirect = $pathToRedirect;
             }
         }
 

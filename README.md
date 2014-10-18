@@ -106,6 +106,7 @@ You must extend the abstract entities provided by the bundle and creating the ap
 	dcs_rating:
         db_driver: orm
         base_path_to_redirect: / # when the permalink is not configured
+        max_value: 5 # maximum value for the vote (stars displayed)
         model:
             rating: MyProject\MyBundle\Entity\Rating
             vote: MyProject\MyBundle\Entity\Vote
