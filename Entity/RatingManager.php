@@ -5,7 +5,7 @@ namespace DCS\RatingBundle\Entity;
 use Doctrine\ORM\EntityManager;
 use DCS\RatingBundle\Model\RatingManager as BaseRatingManager;
 use DCS\RatingBundle\Model\RatingInterface;
-use Symfony\Component\EventDispatcher\EventDispatcher;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class RatingManager extends BaseRatingManager
 {
@@ -24,7 +24,7 @@ class RatingManager extends BaseRatingManager
      */
     protected $class;
 
-    public function __construct(EventDispatcher $dispatcher, EntityManager $em, $class)
+    public function __construct(EventDispatcherInterface $dispatcher, EntityManager $em, $class)
     {
         parent::__construct($dispatcher);
 

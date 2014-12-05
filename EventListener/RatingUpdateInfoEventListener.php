@@ -16,6 +16,8 @@ class RatingUpdateInfoEventListener implements EventSubscriberInterface
 
     public function __construct(Container $container)
     {
+        $container->enterScope('request');
+        $container->set('request', new Request(), 'request');
         $this->request = $container->get('request');
     }
 

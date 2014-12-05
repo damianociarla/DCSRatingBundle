@@ -5,7 +5,7 @@ namespace DCS\RatingBundle\Entity;
 use Doctrine\ORM\EntityManager;
 use DCS\RatingBundle\Model\VoteManager as BaseVoteManager;
 use DCS\RatingBundle\Model\VoteInterface;
-use Symfony\Component\EventDispatcher\EventDispatcher;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use DCS\RatingBundle\Model\RatingInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -26,7 +26,7 @@ class VoteManager extends BaseVoteManager
      */
     protected $class;
 
-    public function __construct(EventDispatcher $dispatcher, EntityManager $em, $class)
+    public function __construct(EventDispatcherInterface $dispatcher, EntityManager $em, $class)
     {
         parent::__construct($dispatcher);
 
