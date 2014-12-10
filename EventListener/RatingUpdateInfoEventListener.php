@@ -11,15 +11,18 @@ use Symfony\Component\HttpFoundation\Request;
 class RatingUpdateInfoEventListener implements EventSubscriberInterface
 {
     /**
-     * @var \Symfony\Component\HttpFoundation\Request
+     * @var Request
      */
     private $request;
 
-    public function __construct(Container $container)
+    /**
+     * Set request
+     *
+     * @param Request $request
+     */
+    public function setRequest(Request $request = null)
     {
-        $container->enterScope('request');
-        $container->set('request', new Request(), 'request');
-        $this->request = $container->get('request');
+        $this->request = $request;
     }
 
     public static function getSubscribedEvents()
@@ -31,6 +34,10 @@ class RatingUpdateInfoEventListener implements EventSubscriberInterface
 
     public function updatePermalink(RatingEvent $event)
     {
+        if (null === $this->request) {
+            return;
+        }
+
         $rating = $event->getRating();
 
         if (null === $rating->getPermalink()) {
