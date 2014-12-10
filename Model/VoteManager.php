@@ -2,7 +2,7 @@
 
 namespace DCS\RatingBundle\Model;
 
-use Symfony\Component\EventDispatcher\EventDispatcher;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use DCS\RatingBundle\DCSRatingEvents;
 use DCS\RatingBundle\Event;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -10,11 +10,11 @@ use Symfony\Component\Security\Core\User\UserInterface;
 abstract class VoteManager implements VoteManagerInterface
 {
     /**
-     * @var \Symfony\Component\EventDispatcher\EventDispatcher
+     * @var \Symfony\Component\EventDispatcher\EventDispatcherInterface
      */
     protected $dispatcher;
 
-    public function __construct(EventDispatcher $dispatcher)
+    public function __construct(EventDispatcherInterface $dispatcher)
     {
         $this->dispatcher = $dispatcher;
     }

@@ -6,6 +6,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use DCS\RatingBundle\DCSRatingEvents;
 use DCS\RatingBundle\Event\RatingEvent;
 use Symfony\Component\DependencyInjection\Container;
+use Symfony\Component\HttpFoundation\Request;
 
 class RatingUpdateInfoEventListener implements EventSubscriberInterface
 {
@@ -16,6 +17,8 @@ class RatingUpdateInfoEventListener implements EventSubscriberInterface
 
     public function __construct(Container $container)
     {
+        $container->enterScope('request');
+        $container->set('request', new Request(), 'request');
         $this->request = $container->get('request');
     }
 
