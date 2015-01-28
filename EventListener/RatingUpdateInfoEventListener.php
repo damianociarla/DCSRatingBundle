@@ -32,6 +32,9 @@ class RatingUpdateInfoEventListener implements EventSubscriberInterface
         );
     }
 
+    /**
+     * @param RatingEvent $event
+     */
     public function updatePermalink(RatingEvent $event)
     {
         if (null === $this->request) {
@@ -39,13 +42,15 @@ class RatingUpdateInfoEventListener implements EventSubscriberInterface
         }
 
         $rating = $event->getRating();
+        $requestPermalink = $this->request->get('permalink');
+        $requestSecurityRole = $this->request->get('securityRole');
 
-        if (null === $rating->getPermalink()) {
-            $rating->setPermalink($this->request->get('permalink'));
+        if ($requestPermalink != $rating->getPermalink()) {
+            $rating->setPermalink($requestPermalink);
         }
 
-        if (null === $rating->getSecurityRole()) {
-            $rating->setSecurityRole($this->request->get('securityRole'));
+        if ($requestSecurityRole != $rating->getSecurityRole()) {
+            $rating->setSecurityRole($requestSecurityRole);
         }
     }
 }
