@@ -1,21 +1,21 @@
-.rating {
+.dcs-rating-container {
     direction: rtl;
     overflow: hidden;
     display: inline-block;
     unicode-bidi: bidi-override;
 }
-.rating > .star {
+.dcs-rating-container > .star {
     direction: ltr;
     color: #ddd;
     font-size: 1em;
     position: relative;
     display: inline-block;
 }
-.rating > a.star {
+.dcs-rating-container > a.star {
     text-decoration: none;
     cursor: pointer;
 }
-.rating > .star.half:before {
+.dcs-rating-container > .star.half:before {
     color: #FDE16D;
     content: '\2605';
     position: absolute;
@@ -23,15 +23,15 @@
     width: 50%;
     overflow: hidden;
 }
-.rating > .star.full:before {
+.dcs-rating-container > .star.full:before {
     color: #FDE16D;
     content: '\2605';
     position: absolute;
     left: 0;
     width: 100%;
 }
-.rating > a.star:hover:before,
-.rating > a.star:hover ~ a.star:before {
+.dcs-rating-container > a.star:hover:before,
+.dcs-rating-container > a.star:hover ~ a.star:before {
     color: #DBD816;
     content: '\2605';
     position: absolute;

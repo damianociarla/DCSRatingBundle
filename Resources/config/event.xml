@@ -5,15 +5,11 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <parameters>
-        <parameter key="dcs_rating.listener.exception.class">DCS\RatingBundle\EventListener\ExceptionEventListener</parameter>
         <parameter key="dcs_rating.listener.rating_update_info.class">DCS\RatingBundle\EventListener\RatingUpdateInfoEventListener</parameter>
         <parameter key="dcs_rating.listener.rating_update_rate.class">DCS\RatingBundle\EventListener\RatingUpdateRateEventListener</parameter>
     </parameters>
 
     <services>
-        <service id="dcs_rating.listener.exception" class="%dcs_rating.listener.exception.class%">
-            <tag name="kernel.event_listener" event="kernel.exception" method="onKernelException" />
-        </service>
         <service id="dcs_rating.listener.rating_update_info" class="%dcs_rating.listener.rating_update_info.class%">
             <call method="setRequest">
                 <argument type="service" id="request" on-invalid="null" strict="false" />

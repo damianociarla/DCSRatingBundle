@@ -1,13 +1,13 @@
 {% spaceless %}
-<div class="rating">
-    {% for i in maxValue..1 %}
-    {% set style = '' %}
-    {% if i <= rate %}
-    {% set style = 'full' %}
-    {% else %}
-    {% set style = rate|isHalfStar(i) ? 'half' %}
-    {% endif %}
-    <span class="star {{ style }}">☆</span>
-    {% endfor %}
-</div>
+    <div class="dcs-rating-container">
+        {% for i in maxValue..1 %}
+            {% set style = '' %}
+            {% if i <= rate %}
+                {% set style = 'full' %}
+            {% else %}
+                {% set style = rate|isHalfStar(i) ? 'half' %}
+            {% endif %}
+            <span class="star {{ style }}">☆</span>
+        {% endfor %}
+    </div>
 {% endspaceless %}
