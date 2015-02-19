@@ -128,6 +128,12 @@ To import the stylesheet run the following command:
 and include the stylesheet in your template:
 
 	<link rel="stylesheet" href="{{ asset('bundles/dcsrating/css/rating.css') }}" />
+	
+### 5.1) Enable vote via ajax
+
+To vote via ajax you have to include the script below after loading the jQuery library:
+
+    <script src="{{ asset('bundles/dcsrating/js/rating.js') }}"></script>
 
 ## 6) Showing rating and enabling vote
 
