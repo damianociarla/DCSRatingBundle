@@ -25,7 +25,15 @@ class RatingController extends Controller
         ));
     }
 
-    public function controlAction($id)
+    /**
+     * @param mixed  $id
+     * @param string $permalink
+     * @param string $securityRole
+     * @param array  $params
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function controlAction($id, $permalink = '', $securityRole = '', $params = array())
     {
         $ratingManager = $this->container->get('dcs_rating.manager.rating');
 
