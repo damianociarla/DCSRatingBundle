@@ -6,6 +6,7 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use DCS\RatingBundle\DCSRatingEvents;
 use DCS\RatingBundle\Event;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface; 
 
 abstract class VoteManager implements VoteManagerInterface
 {

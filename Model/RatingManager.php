@@ -5,6 +5,7 @@ namespace DCS\RatingBundle\Model;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use DCS\RatingBundle\DCSRatingEvents;
 use DCS\RatingBundle\Event;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface; 
 
 abstract class RatingManager implements RatingManagerInterface
 {
