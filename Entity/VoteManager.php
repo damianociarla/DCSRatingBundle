@@ -8,6 +8,7 @@ use DCS\RatingBundle\Model\VoteInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use DCS\RatingBundle\Model\RatingInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface; 
 
 class VoteManager extends BaseVoteManager
 {

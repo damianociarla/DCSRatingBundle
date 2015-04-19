@@ -7,6 +7,7 @@ use DCS\RatingBundle\Model\RatingManager as BaseRatingManager;
 use DCS\RatingBundle\Model\RatingInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
+
 class RatingManager extends BaseRatingManager
 {
     /**
