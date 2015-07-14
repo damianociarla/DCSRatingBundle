@@ -3,13 +3,14 @@
 namespace DCS\RatingBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 class RatingController extends Controller
 {
-    public function showRateAction($id)
+    public function showRateAction($id, Request $request)
     {
         $ratingManager = $this->container->get('dcs_rating.manager.rating');
 
@@ -25,7 +26,7 @@ class RatingController extends Controller
         ));
     }
 
-    public function controlAction($id)
+    public function controlAction($id, Request $request)
     {
         $ratingManager = $this->container->get('dcs_rating.manager.rating');
 
@@ -53,12 +54,12 @@ class RatingController extends Controller
         return $this->render('DCSRatingBundle:Rating:'.$viewName.'.html.twig', array(
             'rating' => $rating,
             'rate'   => $rating->getRate(),
-            'params' => $this->container->get('request')->get('params', array()),
+            'params' => $request->get('params', array()),
             'maxValue' => $this->container->getParameter('dcs_rating.max_value'),
         ));
     }
 
-    public function addVoteAction($id, $value)
+    public function addVoteAction($id, $value, Request $request)
     {
         if (null === $rating = $this->container->get('dcs_rating.manager.rating')->findOneById($id)) {
             throw new NotFoundHttpException('Rating not found');
@@ -87,8 +88,6 @@ class RatingController extends Controller
         $vote->setValue($value);
 
         $voteManager->saveVote($vote);
-
-        $request = $this->container->get('request');
 
         if ($request->isXmlHttpRequest()) {
             return $this->forward('DCSRatingBundle:Rating:showRate', array(
