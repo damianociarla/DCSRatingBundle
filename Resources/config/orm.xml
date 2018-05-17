@@ -13,12 +13,12 @@
     </parameters>
 
     <services>
-        <service id="dcs_rating.manager.rating.default" class="%dcs_rating.manager.rating.default.class%">
+        <service id="dcs_rating.manager.rating.default" class="%dcs_rating.manager.rating.default.class%" public="true">
             <argument type="service" id="event_dispatcher" />
             <argument type="service" id="doctrine.orm.entity_manager" />
             <argument>%dcs_rating.model.rating.class%</argument>
         </service>
-        <service id="dcs_rating.manager.vote.default" class="%dcs_rating.manager.vote.default.class%">
+        <service id="dcs_rating.manager.vote.default" class="%dcs_rating.manager.vote.default.class%" public="true">
             <argument type="service" id="event_dispatcher" />
             <argument type="service" id="doctrine.orm.entity_manager" />
             <argument>%dcs_rating.model.vote.class%</argument>
