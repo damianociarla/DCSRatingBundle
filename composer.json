@@ -1,6 +1,6 @@
 {
     "name": "damianociarla/rating-bundle",
-    "description": "This Bundle provides functionality for a rating system for Symfony2 applications",
+    "description": "This Bundle provides functionality for a rating system for Symfony applications",
     "type": "library",
     "keywords": [
         "symfony2","rating","star","twig","fos","fosuserbundle"
@@ -15,8 +15,13 @@
         }
     ],
     "require": {
-        "php": ">=5.3.2",
-        "symfony/symfony": "~2.3"
+        "php": "^7.1",
+        "symfony/framework-bundle": "^2.8 || ^3.0 || ^4.0",
+        "symfony/security-bundle": "^2.8 || ^3.0 || ^4.0",
+        "symfony/twig-bundle": "^2.8 || ^3.0 || ^4.0",
+        "twig/twig": "^1.28 || ^2.0",
+        "symfony/templating": "^2.8 || ^3.0 || ^4.0",
+        "doctrine/doctrine-bundle": "^1.3"
     },
     "autoload": {
         "psr-4": { "DCS\\RatingBundle\\": "" }
