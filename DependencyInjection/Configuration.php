@@ -12,8 +12,13 @@ class Configuration implements ConfigurationInterface
      */
     public function getConfigTreeBuilder()
     {
-        $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('dcs_rating');
+        $treeBuilder = new TreeBuilder('dcs_rating');
+        if (\method_exists($treeBuilder, 'getRootNode')) {
+            $rootNode = $treeBuilder->getRootNode();
+        } else {
+            // BC layer for symfony/config 4.1 and older
+            $rootNode = $treeBuilder->root('dcs_rating');
+        }
 
         $rootNode
             ->children()
@@ -32,8 +37,13 @@ class Configuration implements ConfigurationInterface
 
     private function buildModelConfiguration()
     {
-        $builder = new TreeBuilder();
-        $node = $builder->root('model');
+        $builder = new TreeBuilder('model');
+        if (\method_exists($builder, 'getRootNode')) {
+            $node = $builder->getRootNode();
+        } else {
+            // BC layer for symfony/config 4.1 and older
+            $node = $builder->root('model');
+        }
 
         $node
             ->isRequired()
@@ -52,8 +62,13 @@ class Configuration implements ConfigurationInterface
 
     private function buildServiceConfiguration()
     {
-        $builder = new TreeBuilder();
-        $node = $builder->root('service');
+        $builder = new TreeBuilder('service');
+        if (\method_exists($builder, 'getRootNode')) {
+            $node = $builder->getRootNode();
+        } else {
+            // BC layer for symfony/config 4.1 and older
+            $node = $builder->root('service');
+        }
 
         $node
             ->addDefaultsIfNotSet()
