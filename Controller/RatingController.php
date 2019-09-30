@@ -10,9 +10,9 @@ use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 class RatingController extends Controller
 {
-    public function showRateAction($id, Request $request)
+    public function showRateAction($id)
     {
-        $ratingManager = $this->container->get('dcs_rating.manager.rating');
+        $ratingManager = $this->container->get('dcs_rating.manager.rating.default');
 
         if (null === $rating = $ratingManager->findOneById($id)) {
             $rating = $ratingManager->createRating($id);
@@ -26,9 +26,9 @@ class RatingController extends Controller
         ));
     }
 
-    public function controlAction($id, Request $request)
+    public function controlAction(Request $request, $id)
     {
-        $ratingManager = $this->container->get('dcs_rating.manager.rating');
+        $ratingManager = $this->container->get('dcs_rating.manager.rating.default');
 
         if (null === $rating = $ratingManager->findOneById($id)) {
             $rating = $ratingManager->createRating($id);
@@ -36,7 +36,7 @@ class RatingController extends Controller
         }
 
         // check if the user has permission to express the vote on entity Rating
-        if (!$this->container->get('security.context')->isGranted($rating->getSecurityRole())) {
+        if (!$this->container->get('security.authorization_checker')->isGranted($rating->getSecurityRole())) {
             $viewName = 'star';
         } else {
             // check if the voting system allows multiple votes. Otherwise
@@ -59,13 +59,13 @@ class RatingController extends Controller
         ));
     }
 
-    public function addVoteAction($id, $value, Request $request)
+    public function addVoteAction(Request $request, $id, $value)
     {
-        if (null === $rating = $this->container->get('dcs_rating.manager.rating')->findOneById($id)) {
+        if (null === $rating = $this->container->get('dcs_rating.manager.rating.default')->findOneById($id)) {
             throw new NotFoundHttpException('Rating not found');
         }
 
-        if (null === $rating->getSecurityRole() || !$this->container->get('security.context')->isGranted($rating->getSecurityRole())) {
+        if (null === $rating->getSecurityRole() || !$this->container->get('security.authorization_checker')->isGranted($rating->getSecurityRole())) {
             throw new AccessDeniedHttpException('You can not perform the evaluation');
         }
 

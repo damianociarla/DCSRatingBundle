@@ -12,7 +12,7 @@
     <services>
         <service id="dcs_rating.listener.rating_update_info" class="%dcs_rating.listener.rating_update_info.class%">
             <call method="setRequest">
-                <argument type="service" id="request" on-invalid="null" strict="false" />
+                <argument type="service" id="request" on-invalid="null" />
             </call>
             <tag name="kernel.event_subscriber" />
         </service>
